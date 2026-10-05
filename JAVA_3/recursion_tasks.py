@@ -19,12 +19,12 @@ def mm(n):
     if n == 0:
         return 0
     return n - m2(mm(n - 1))
- 
+
 print(m2(20)) #call it for m2=20
+
 #it prints: 13
 #m2 is called 814 times
 #mm is called 813 times, so it total it makes 1,627 calls
-
 
 
 def m3(n):
@@ -34,3 +34,5 @@ def m3(n):
 
 print(m3(20))
 #call it for m3=20
+#it prints: 524288
+#it makes 1,048,575 calls
