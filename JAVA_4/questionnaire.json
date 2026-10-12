@@ -1,0 +1,38 @@
+{
+  "start_question_id": "q1",
+  "questions": [
+    {"id": "q1", "text": "Do you own a car?", "type": "radio",
+     "answers": [
+       {"id": "a1_yes", "text": "Yes", "next_question_id": "q2"},
+       {"id": "a1_no", "text": "No", "next_question_id": "q5"}]},
+    {"id": "q2", "text": "What type of car do you own?", "type": "select",
+     "answers": [
+       {"id": "a2_sedan", "text": "Sedan", "next_question_id": "q3"},
+       {"id": "a2_suv", "text": "SUV", "next_question_id": "q3"},
+       {"id": "a2_truck", "text": "Truck", "next_question_id": "q4"},
+       {"id": "a2_sports", "text": "Sports Car", "next_question_id": "q4"}]},
+    {"id": "q3", "text": "How many passengers can your vehicle seat?", "type": "radio",
+     "answers": [
+       {"id": "a3_2to5", "text": "2-5", "next_question_id": "q6"},
+       {"id": "a3_6plus", "text": "6+", "next_question_id": "q6"}]},
+    {"id": "q4", "text": "Do you use your vehicle for work purposes?", "type": "radio",
+     "answers": [
+       {"id": "a4_yes", "text": "Yes", "next_question_id": "q7"},
+       {"id": "a4_no", "text": "No", "next_question_id": "q6"}]},
+    {"id": "q5", "text": "What is your primary mode of transportation?", "type": "select",
+     "answers": [
+       {"id": "a5_public", "text": "Public Transit", "next_question_id": "q6"},
+       {"id": "a5_bike", "text": "Bicycle", "next_question_id": "q6"},
+       {"id": "a5_walk", "text": "Walking", "next_question_id": "q6"}]},
+    {"id": "q6", "text": "What is your annual commute distance?",
+     "type": "text", "next_question_id": "q8"},
+    {"id": "q7", "text": "What percentage of your vehicle use is for work?",
+     "type": "text", "next_question_id": "q8"},
+    {"id": "q8", "text": "Are you satisfied with your current transportation situation?", "type": "radio",
+     "answers": [
+       {"id": "a8_yes", "text": "Yes", "next_question_id": null},
+       {"id": "a8_no", "text": "No", "next_question_id": "q9"}]},
+    {"id": "q9", "text": "What would you like to improve?",
+     "type": "text", "next_question_id": null}
+  ]
+}
