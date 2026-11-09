@@ -1,0 +1,18 @@
+pattern,replacement
+new york city,nyc
+new york,nyc
+street,st
+avenue,ave
+road,rd
+boulevard,blvd
+drive,dr
+lane,ln
+court,ct
+place,pl
+apartment,apt
+unit,apt
+suite,ste
+north,n
+south,s
+east,e
+west,w

@@ -1,0 +1,60 @@
+Please use python to solve the following problem:
+
+The problem: an online marketplace has people making multiple accounts to keep getting
+the "first-time buyer" discount. I need to catch duplicate orders by looking at the
+shipping address, even when people change it slightly to hide that it's the same place.
+
+I'm giving you two input files:
+- orders.csv: the orders. Each one has an order_id, an email, an address, and a
+  timestamp of this format: "YYYY-MM-DD HH:MM".
+- abbreviations.csv: the abbreviation rules I made, with the columns
+  pattern,replacement (for example: street,st or new york city,nyc). A pattern with
+  a space in it is a phrase, anything else is a single word.
+
+When to flag an order:
+An order is suspicious if, after normalizing, its address is the same as an earlier
+order's address, AND that earlier order used a different email, AND it happened within
+the last 24 hours. The 24 hours should be inclusive, so an order exactly 24 hours
+before still counts. If more than one earlier order matches, report the earliest one
+in the window that has a different email (if the earliest has the same email, skip it
+and take the next). Same email + same address isn't fraud, that's just a returning
+customer. Also, every order should be saved even if it gets flagged, since later
+orders might match it. For comparing emails, I'd ignore case and extra spaces.
+
+How I'd like the addresses normalized:
+Lowercase everything and trim it. Replace the phrases from abbreviations.csv
+(like "new york city" → "nyc") before splitting into words. If phrases overlap, the
+longest one should win, so the order of rows in my file doesn't matter. Join unit
+numbers like "4-B" or "4 - b" into "4b" (only short number+letter combos, so
+something like "10-12" stays as it is). Then swap any leftover punctuation for spaces
+(# should become "apt"), collapse extra spaces, and replace single words using the
+word rules from abbreviations.csv (like street → st, apartment → apt).
+So "123 Main Street, Apt 4B, NYC" and "123 Main Street Apt 4-B New York City" should
+both end up as "123 main st apt 4b nyc". Please put this in its own function so I
+can test it separately.
+
+Please don't hardcode any abbreviations in the code. Everything should come from my
+abbreviations.csv, so I can add new rules without touching the code. If the file is
+missing or doesn't have the pattern,replacement columns, the program should stop
+with a clear error.
+
+For the data structure, you can use builtin python functions like a dict for example,
+where the key is the normalized address and the value is a deque of
+(timestamp, order_id, email) in time order. When a new order comes in, drop anything
+older than 24 hours from the front, then look for the first entry with a different
+email.
+
+What I need back:
+- a FraudDetector class with a process_order(order) method that returns
+  (order_id, matched_order_id), or None if nothing matches
+- the normalize_address function
+- a function that loads the rules from abbreviations.csv
+- a main block that reads orders.csv, runs the example below and prints exactly the
+  expected output
+- some unittest tests for: case, punctuation and spacing differences, the
+  abbreviations, "4B" vs "4-B", NYC vs New York City, same email (shouldn't flag),
+  exactly 24h (should flag), 24h and 1 minute (shouldn't flag), several matches
+  (earliest one gets reported), the case where the earliest match has the same
+  email and should be skipped, and loading abbreviations.csv (including a missing file)
+- the fraud alerts saved to a fraud_alerts.csv file with the columns
+  order_id, matched_order_id, reason
